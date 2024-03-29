@@ -7,6 +7,13 @@ fn main() {
     let mut decimals = vec![1.1, 0.2, 2.3, 2.4, 5.5, 4.6, 0.7, 6.8];
     bubble_sort(&mut decimals);
     println!("{:?}", decimals);
+
+    let green = TrafficLight::Green;
+    println!("duration: {}", green.duration());
+    let red = TrafficLight::Red;
+    println!("duration: {}", red.duration());
+    let yellow = TrafficLight::Yellow;
+    println!("duration: {}", yellow.duration());
 }
 
 fn bubble_sort<T: PartialOrd>(s: &mut [T]) {
@@ -15,6 +22,26 @@ fn bubble_sort<T: PartialOrd>(s: &mut [T]) {
             if s[j] > s[j+1] {
                 s.swap(j, j+1);
             }
+        }
+    }
+}
+
+enum TrafficLight {
+    Red,
+    Green,
+    Yellow,
+}
+
+trait Duration {
+    fn duration(&self) -> u8;
+}
+
+impl Duration for TrafficLight {
+    fn duration(&self) -> u8 {
+        match self {
+            TrafficLight::Red => 10,
+            TrafficLight::Green => 20,
+            TrafficLight::Yellow =>3,
         }
     }
 }
