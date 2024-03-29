@@ -18,6 +18,13 @@ fn main() {
     let v: [u32; 3] = [1, 2, 3];
     let sum = sum_integers(&v);
     println!("sum: {}", sum.unwrap());
+
+    let circle = Circle { radius: 1.25 };
+    let triangle = Triangle { length: 2.5, height: 1.34 };
+    let square = Square { length: 32.3 };
+    println!("area of circle: {}", get_area(&circle));
+    println!("area of triangle: {}", get_area(&triangle));
+    println!("area of square: {}", get_area(&square));
 }
 
 fn bubble_sort<T: PartialOrd>(s: &mut [T]) {
@@ -59,4 +66,43 @@ fn sum_integers(v: &[u32]) -> Option<u32> {
         }
     }
     Some(sum)
+}
+
+trait Shape {
+    fn area(&self) -> f64;
+}
+
+struct Circle {
+    radius: f64,
+}
+
+impl Shape for Circle {
+    fn area(&self) -> f64 {
+        3.14 * self.radius * self.radius
+    }
+}
+
+struct Triangle {
+    length: f64,
+    height: f64,
+}
+
+impl Shape for Triangle {
+    fn area(&self) -> f64 {
+        self.length * self.height / 2.0
+    }
+}
+
+struct Square {
+    length: f64,
+}
+
+impl Shape for Square {
+    fn area(&self) -> f64 {
+        self.length * self.length
+    }
+}
+
+fn get_area<T: Shape>(s: &T) -> f64 {
+    s.area()
 }
