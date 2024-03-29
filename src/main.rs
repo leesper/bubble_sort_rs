@@ -14,6 +14,10 @@ fn main() {
     println!("duration: {}", red.duration());
     let yellow = TrafficLight::Yellow;
     println!("duration: {}", yellow.duration());
+
+    let v: [u32; 3] = [1, 2, 3];
+    let sum = sum_integers(&v);
+    println!("sum: {}", sum.unwrap());
 }
 
 fn bubble_sort<T: PartialOrd>(s: &mut [T]) {
@@ -44,4 +48,15 @@ impl Duration for TrafficLight {
             TrafficLight::Yellow =>3,
         }
     }
+}
+
+fn sum_integers(v: &[u32]) -> Option<u32> {
+    let mut sum: u32 = 0;
+    for e in v.iter() {
+        match sum.checked_add(*e) {
+            Some(x) => sum += x,
+            None => return None
+        }
+    }
+    Some(sum)
 }
